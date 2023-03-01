@@ -39,5 +39,5 @@
 <li>Start your emulator</li>
 <li>Run the app &amp; enjoy</li>
 </ul>
-<p><strong>Contact me for work:&nbsp;</strong><a href="mailto:musabapps2019@gmail.com"><strong>musabapps2019@gmail.com</strong></a></p>
+<p><strong>Contact me for work:&nbsp;</strong><a href="mailto:fathi.ayari@sesame.com.tn"><strong>fathi.ayari@sesame.com.tn</strong></a></p>
 <p>&nbsp;</p>
