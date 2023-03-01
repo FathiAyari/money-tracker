@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/ui/views/home_view.dart';
+import 'package:moneymanager/ui/views/sign_in_view.dart';
 import 'package:moneymanager/ui/views/spash_view.dart';
+
+import 'views/register_view.dart';
 
 const String initialRoute = "login";
 
@@ -11,6 +14,10 @@ class Routes {
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeView());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => SignInScreen());
+      case '/register':
+        return MaterialPageRoute(builder: (_) => SignupScreen());
       /*   case 'edit':
         var transaction = settings.arguments as Transaction;
         return MaterialPageRoute(builder: (_) => EditView(transaction));

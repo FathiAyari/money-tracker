@@ -1,10 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:moneymanager/ui/router.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 
 import 'locator.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // initialize firebase app
+  await GetStorage.init(); // initialize getStorage
   setupLocator();
   runApp(MyApp());
 }
@@ -12,7 +18,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Money Manager',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

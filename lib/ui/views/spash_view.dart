@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:moneymanager/ui/shared/dimensions/dimensions.dart';
-import 'package:moneymanager/ui/views/home_view.dart';
 
 import '../shared/app_colors.dart';
 
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     var timer = Timer(Duration(seconds: 3), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeView()));
+      Get.toNamed("/login");
     });
   }
 

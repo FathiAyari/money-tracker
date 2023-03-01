@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "64524451914",
+    "project_id": "money-manager-92cfa",
+    "storage_bucket": "money-manager-92cfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64524451914:android:186195e45e2dc186c2a6b3",
+        "android_client_info": {
+          "package_name": "com.musabapps.moneymanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64524451914-48n1lstlblto7u67e1ohdi5eqrefi904.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBooIGgbnU1PGWLo0ZeZ6s41AzexrdcZds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64524451914-48n1lstlblto7u67e1ohdi5eqrefi904.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
