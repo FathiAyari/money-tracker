@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moneymanager/core/services/AuthServices.dart';
-import 'package:moneymanager/ui/views/register_view.dart';
+import 'package:moneymanager/ui/shared/dimensions/dimensions.dart';
+import 'package:moneymanager/ui/widgets/inputs/input_field.dart';
 
 import 'forgot_password_view.dart';
 
@@ -22,7 +23,7 @@ class _LoginScreenState extends State<SignInScreen> {
     super.initState();
   }
 
-  final _formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -72,7 +73,7 @@ class _LoginScreenState extends State<SignInScreen> {
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Form(
-                key: _formkey,
+                key: _formKey,
                 child: Column(children: [
                   Container(
                     height: 280,
@@ -115,85 +116,46 @@ class _LoginScreenState extends State<SignInScreen> {
                     )),
                   ),
                   SizedBox(height: 80),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 6,
-                        offset: Offset(0, 6),
-                      ),
-                    ]),
-                    height: 50,
-                    child: TextFormField(
-                      controller: emailController,
-                      validator: (Value) {
-                        if (Value!.isEmpty) return "s'il vous plait saisir un email valide ";
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(
-                        color: Colors.black87,
-                      ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(top: 14),
-                        prefixIcon: Icon(Icons.email, color: Colors.indigo),
-                        hintText: 'exemple@gmail.com',
-                        hintStyle: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
-                      ),
+                  InputField(
+                    label: "Email",
+                    controller: emailController,
+                    textInputType: TextInputType.emailAddress,
+                    prefixWidget: Icon(
+                      Icons.email,
+                      color: Colors.indigo,
                     ),
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 6,
-                        offset: Offset(0, 6),
-                      ),
-                    ]),
-                    height: 50,
-                    child: TextFormField(
-                      controller: passwordController,
-                      validator: (Value) {
-                        if (Value!.isEmpty) return "s'il vous plait saisir un mot de passe valide ";
-                      },
-                      obscureText: true,
-                      style: TextStyle(
-                        color: Colors.black87,
-                      ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(top: 14),
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          color: Colors.indigo,
-                        ),
-                        hintText: 'Mot de passe',
-                        hintStyle: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
-                      ),
+                  InputField(
+                    label: "Mot de passe",
+                    controller: emailController,
+                    textInputType: TextInputType.emailAddress,
+                    prefixWidget: Icon(
+                      Icons.lock,
+                      color: Colors.indigo,
                     ),
                   ),
                   SizedBox(
                     height: 25,
                   ),
-                  TextButton(
-                      onPressed: () {
-                        Get.to(ForgotPassScreen());
-                      },
-                      child: Text(
-                        "mot de passe oublié?",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            color: Colors.black54,
-                            //fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic),
-                      )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Constants.screenWidth * 0.07),
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      width: Constants.screenWidth,
+                      child: TextButton(
+                          onPressed: () {
+                            Get.to(ForgotPassScreen());
+                          },
+                          child: Text(
+                            "mot de passe oublié?",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: Colors.black54,
+                                //fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
+                          )),
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -209,7 +171,7 @@ class _LoginScreenState extends State<SignInScreen> {
                                           Text('Connexion', style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic)),
                                       color: Colors.indigo,
                                       onPressed: () {
-                                        if (_formkey.currentState!.validate()) {
+                                        if (_formKey.currentState!.validate()) {
                                           setState(() {
                                             isLoading = true;
                                           });
@@ -217,7 +179,9 @@ class _LoginScreenState extends State<SignInScreen> {
                                               .signIn(emailController.text, passwordController.text)
                                               .then((value) async {
                                             if (value) {
+                                              print("done");
                                             } else {
+                                              print("fucked up");
                                               setState(() {
                                                 isLoading = false;
                                               });
@@ -237,7 +201,7 @@ class _LoginScreenState extends State<SignInScreen> {
                             child: Text("Besoin d'un nouveau compte?",
                                 style: TextStyle(color: Colors.indigo, fontSize: 14, fontStyle: FontStyle.italic)),
                             onPressed: () {
-                              Get.to(SignupScreen());
+                              Get.toNamed("/register");
                             },
                           ))
                         ],
