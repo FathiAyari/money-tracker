@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:moneymanager/ui/shared/dimensions/dimensions.dart';
 
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     var timer = Timer(Duration(seconds: 3), () {
-      Get.toNamed("/login");
+      GetStorage().read("auth") == 1 ? Get.toNamed("/home") : Get.toNamed("/login");
     });
   }
 

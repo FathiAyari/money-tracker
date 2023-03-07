@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:moneymanager/core/models/user.dart';
 
 class AuthServices {
@@ -46,4 +47,13 @@ class AuthServices {
   }
 
   User? get user => auth.currentUser;
+
+  saveConnectedUser() {
+    var storage = GetStorage();
+    storage.write("auth", 1);
+  }
+
+  logout() {
+
+    GetStorage().remove("auth");  }
 }

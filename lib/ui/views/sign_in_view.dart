@@ -180,7 +180,8 @@ class _LoginScreenState extends State<SignInScreen> {
                                               .signIn(emailController.text, passwordController.text)
                                               .then((value) async {
                                             if (value) {
-                                              print("done");
+                                              AuthServices().saveConnectedUser();
+                                              Get.toNamed("/home");
                                             } else {
                                               Fluttertoast.showToast(
                                                   msg: "Invalid cridentials",
