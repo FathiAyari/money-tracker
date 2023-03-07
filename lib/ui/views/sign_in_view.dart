@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:moneymanager/core/services/AuthServices.dart';
 import 'package:moneymanager/ui/shared/dimensions/dimensions.dart';
@@ -126,9 +127,9 @@ class _LoginScreenState extends State<SignInScreen> {
                     ),
                   ),
                   InputField(
-                    label: "Mot de passe",
-                    controller: emailController,
-                    textInputType: TextInputType.emailAddress,
+                    label: "Password",
+                    controller: passwordController,
+                    textInputType: TextInputType.visiblePassword,
                     prefixWidget: Icon(
                       Icons.lock,
                       color: Colors.indigo,
@@ -181,7 +182,14 @@ class _LoginScreenState extends State<SignInScreen> {
                                             if (value) {
                                               print("done");
                                             } else {
-                                              print("fucked up");
+                                              Fluttertoast.showToast(
+                                                  msg: "Invalid cridentials",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: Colors.grey,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
                                               setState(() {
                                                 isLoading = false;
                                               });

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:moneymanager/core/services/AuthServices.dart';
 import 'package:moneymanager/ui/shared/dimensions/dimensions.dart';
 import 'package:moneymanager/ui/views/action_button.dart';
 import 'package:moneymanager/ui/views/sign_in_view.dart';
@@ -17,9 +19,8 @@ class _SignupScreenState extends State<SignupScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController gsmController = TextEditingController();
-  TextEditingController _passController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           InputField(
                             label: "Email",
-                            controller: emailcontroller,
+                            controller: emailController,
                             textInputType: TextInputType.emailAddress,
                             prefixWidget: Icon(
                               Icons.email,
@@ -84,7 +85,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           InputField(
                             label: "Password",
-                            controller: _passController,
+                            controller: passwordController,
                             textInputType: TextInputType.visiblePassword,
                             prefixWidget: Icon(
                               Icons.lock,
@@ -98,7 +99,31 @@ class _SignupScreenState extends State<SignupScreen> {
                                     Expanded(
                                         child: ActionButton(
                                       label: "S'inscrire",
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            loading = true;
+                                          });
+                                          AuthServices()
+                                              .signUp(emailController.text, passwordController.text, nameController.text)
+                                              .then((value) async {
+                                            if (value) {
+                                            } else {
+                                              Fluttertoast.showToast(
+                                                  msg: "Invalid cridentials",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: Colors.grey,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              setState(() {
+                                                loading = false;
+                                              });
+                                            }
+                                          });
+                                        }
+                                      },
                                       buttonColor: Colors.indigo,
                                       labelColor: Colors.white,
                                     ))

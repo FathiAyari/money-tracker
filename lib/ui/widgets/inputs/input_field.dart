@@ -22,7 +22,7 @@ class InputField extends StatelessWidget {
           validator: (value) {
             if (value!.isEmpty) {
               return "This field is required";
-            } else if (label == "E-mail") {
+            } else if (label == "Email") {
               bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
               if (!emailValid) {
                 return " Invalid email format";

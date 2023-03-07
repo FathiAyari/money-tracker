@@ -111,16 +111,16 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                                                   });
                                                   if (value) {
                                                     alertTask(
-                                                      lottieFile: "images/success.json",
+                                                      lottieFile: "assets/lotties/success.json",
                                                       action: "Connecter",
                                                       message: "Consultez vos mail svp",
                                                       press: () {
-                                                        Get.to(() => SignInScreen());
+                                                        Get.toNamed("/login");
                                                       },
                                                     ).show(context);
                                                   } else {
                                                     alertTask(
-                                                      lottieFile: "images/error.json",
+                                                      lottieFile: "assets/lotties/error.json",
                                                       action: "Ressayer",
                                                       message: "compte n'existe pas ",
                                                       press: () {
