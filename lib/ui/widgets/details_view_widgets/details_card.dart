@@ -1,9 +1,9 @@
-/*
 import 'package:flutter/material.dart';
-import 'package:moneymanager/core/database/moor_database.dart';
 import 'package:moneymanager/core/viewmodels/details_model.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 import 'package:moneymanager/ui/widgets/details_view_widgets/details_table.dart';
+
+import '../../../core/database/transaction.dart';
 
 class DetailsCard extends StatelessWidget {
   final Transaction transaction;
@@ -39,4 +39,3 @@ class DetailsCard extends StatelessWidget {
     );
   }
 }
-*/

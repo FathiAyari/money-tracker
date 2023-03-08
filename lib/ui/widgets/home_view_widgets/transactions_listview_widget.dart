@@ -41,7 +41,7 @@ class _TransactionsListViewState extends State<TransactionsListView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          transaction.day + ', ' + transaction.month,
+                          transaction.day + ', ' + transaction.date.toString(),
                           style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                         Text(
