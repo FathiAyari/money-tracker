@@ -3,6 +3,8 @@ import 'package:moneymanager/ui/views/home_view.dart';
 import 'package:moneymanager/ui/views/sign_in_view.dart';
 import 'package:moneymanager/ui/views/spash_view.dart';
 
+import 'views/insert_transaction_view.dart';
+import 'views/new_transaction_view.dart';
 import 'views/register_view.dart';
 
 const String initialRoute = "login";
@@ -18,6 +20,12 @@ class Routes {
         return MaterialPageRoute(builder: (_) => SignInScreen());
       case '/register':
         return MaterialPageRoute(builder: (_) => SignupScreen());
+      case '/newtransaction':
+        return MaterialPageRoute(builder: (_) => NewTransactionView());
+      case '/inserttransaction':
+        var args = settings.arguments as List<dynamic>;
+        return MaterialPageRoute(
+            builder: (_) => InsertTranscationView(category: args.elementAt(0), selectedCategory: args.elementAt(1)));
       /*   case 'edit':
         var transaction = settings.arguments as Transaction;
         return MaterialPageRoute(builder: (_) => EditView(transaction));

@@ -22,12 +22,12 @@ class CategoryIconService {
     Category(14, "Pet", FontAwesomeIcons.dog, Colors.deepPurpleAccent),
   };
   //* SECOND : INCOME LIST
-  final incomeList = {
+  final incomeList = [
     Category(0, "Salary", FontAwesomeIcons.wallet, Colors.green),
     Category(1, "Awards", FontAwesomeIcons.moneyCheck, Colors.amber),
     Category(2, "Grants", FontAwesomeIcons.gifts, Colors.lightGreen),
     Category(3, "Rental", FontAwesomeIcons.houseUser, Colors.yellow),
     Category(4, "Investment", FontAwesomeIcons.piggyBank, Colors.cyanAccent),
     Category(5, "Lottery", FontAwesomeIcons.dice, Colors.deepOrange),
-  };
+  ];
 }
