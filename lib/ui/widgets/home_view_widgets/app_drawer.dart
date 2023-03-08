@@ -55,6 +55,7 @@ class AppDrawer extends StatelessWidget {
             title: Text('Chart'),
             leading: Icon(Icons.pie_chart),
             onTap: () {
+              Navigator.pop(context);
               Navigator.of(context).pushNamed("/chart");
             },
           ),

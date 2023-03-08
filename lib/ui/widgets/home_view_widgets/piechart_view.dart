@@ -1,6 +1,7 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
+import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/shared/dimensions/dimensions.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -17,7 +18,14 @@ class PieChartView extends StatelessWidget {
       onModelReady: (model) => model.init(true),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text('Chart'),
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          backgroundColor: backgroundColor,
+          title: Text(
+            'Chart',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         body: model.state == ViewState.Busy
             ? CircularProgressIndicator()
@@ -31,34 +39,6 @@ class PieChartView extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           ChipsChoice<int>.single(
-                            choiceStyle: C2ChipStyle.filled(
-                                backgroundOpacity: 0,
-                                pressedStyle: const C2ChipStyle(
-                                  backgroundColor: Colors.white,
-                                  shadowColor: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(25),
-                                  ),
-                                ),
-                                selectedStyle: const C2ChipStyle(
-                                  backgroundColor: Colors.white,
-                                  borderColor: Colors.red,
-                                  borderWidth: 2,
-                                  borderStyle: BorderStyle.solid,
-                                  borderOpacity: 0.9,
-                                  checkmarkColor: Colors.red,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(25),
-                                  ),
-                                ),
-                                checkmarkStyle: C2ChipCheckmarkStyle.round,
-                                avatarForegroundColor: Colors.red,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(25),
-                                ),
-                                avatarForegroundStyle: TextStyle(color: Colors.red),
-                                avatarBackgroundColor: Colors.red,
-                                checkmarkColor: Colors.red),
                             choiceCheckmark: true,
                             value: model.selectedMonthIndex,
                             wrapped: true,
