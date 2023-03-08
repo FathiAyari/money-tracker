@@ -55,7 +55,7 @@ class AppDrawer extends StatelessWidget {
             title: Text('Chart'),
             leading: Icon(Icons.pie_chart),
             onTap: () {
-              Navigator.of(context).pushNamed("chart");
+              Navigator.of(context).pushNamed("/chart");
             },
           ),
           Divider(

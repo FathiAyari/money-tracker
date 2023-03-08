@@ -6,6 +6,7 @@ import 'package:moneymanager/ui/views/spash_view.dart';
 import 'views/insert_transaction_view.dart';
 import 'views/new_transaction_view.dart';
 import 'views/register_view.dart';
+import 'widgets/home_view_widgets/piechart_view.dart';
 
 const String initialRoute = "login";
 
@@ -26,6 +27,8 @@ class Routes {
         var args = settings.arguments as List<dynamic>;
         return MaterialPageRoute(
             builder: (_) => InsertTranscationView(category: args.elementAt(0), selectedCategory: args.elementAt(1)));
+      case '/chart':
+        return MaterialPageRoute(builder: (_) => PieChartView());
       /*   case 'edit':
         var transaction = settings.arguments as Transaction;
         return MaterialPageRoute(builder: (_) => EditView(transaction));
