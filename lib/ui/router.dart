@@ -4,7 +4,7 @@ import 'package:moneymanager/ui/views/home_view.dart';
 import 'package:moneymanager/ui/views/sign_in_view.dart';
 import 'package:moneymanager/ui/views/spash_view.dart';
 
-import '../core/database/transaction.dart';
+import '../core/models/transaction.dart';
 import 'views/insert_transaction_view.dart';
 import 'views/new_transaction_view.dart';
 import 'views/register_view.dart';
@@ -32,7 +32,7 @@ class Routes {
       case '/chart':
         return MaterialPageRoute(builder: (_) => PieChartView());
       case 'details':
-        var transaction = settings.arguments as Transaction;
+        var transaction = settings.arguments as TransactionProcess;
         return MaterialPageRoute(builder: (_) => DetailsView(transaction));
       /*   case 'edit':
         var transaction = settings.arguments as Transaction;

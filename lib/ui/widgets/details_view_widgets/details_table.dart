@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanager/core/database/transaction.dart';
+import 'package:moneymanager/core/models/transaction.dart';
 
 class DetailsTable extends StatelessWidget {
   const DetailsTable({
@@ -7,7 +7,7 @@ class DetailsTable extends StatelessWidget {
     required this.transaction,
   }) : super(key: key);
 
-  final Transaction transaction;
+  final TransactionProcess transaction;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class DetailsTable extends StatelessWidget {
               ),
             ),
             Text(
-              transaction.day + ", " + transaction.date.toString(),
+              transaction.day + ", " + transaction.month,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontWeight: FontWeight.w400,

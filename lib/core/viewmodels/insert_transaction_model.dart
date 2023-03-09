@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:moneymanager/core/models/transaction.dart';
+import 'package:moneymanager/core/services/transaction_sercvices.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
 class InsertTransactionModel extends BaseModel {
   TextEditingController memoController = TextEditingController();
   TextEditingController amountController = TextEditingController();
-
+  bool loading = false;
   List months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   String selectedDay = new DateTime.now().day.toString();
@@ -53,13 +55,21 @@ class InsertTransactionModel extends BaseModel {
     String memo = memoController.text;
     String amount = amountController.text;
 
-/*    Transaction newTransaction = new Transaction(
+    TransactionProcess newTransaction = TransactionProcess(
         type: type,
         day: selectedDay,
         month: selectedMonth,
         memo: memoController.text,
         amount: int.parse(amount),
-        categoryindex: cateogryIndex);*/
-    // insert it!
+        categoryindex: cateogryIndex);
+    loading = true;
+    notifyListeners();
+    TransactionServices.addTransaction(newTransaction).then((value) {
+      loading = false;
+      memoController.clear();
+      amountController.clear();
+      notifyListeners();
+    });
+    print("categoryIndex:${cateogryIndex}");
   }
 }

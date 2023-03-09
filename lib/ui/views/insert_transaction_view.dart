@@ -9,6 +9,8 @@ class InsertTranscationView extends StatelessWidget {
   final Category category;
   final int selectedCategory;
   InsertTranscationView({required this.category, required this.selectedCategory});
+  final _formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BaseView<InsertTransactionModel>(
@@ -21,57 +23,64 @@ class InsertTranscationView extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ListView(
-              children: <Widget>[
-                ListTile(
-                  title: Text(category.name),
-                  leading: CircleAvatar(
-                      child: Icon(
-                    category.icon,
-                    size: 20,
-                  )),
-                ),
-                UIHelper.verticalSpaceMedium(),
-                buildTextField(model.memoController, 'Memo:', "Enter a memo for your transcation", Icons.edit, false),
-                UIHelper.verticalSpaceMedium(),
-                buildTextField(
-                    model.amountController, 'Amount:', "Enter a the amount for the transcation", Icons.attach_money, true),
-                UIHelper.verticalSpaceMedium(),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'SELECT DATE:',
-                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+            child: Form(
+              key: _formkey,
+              child: ListView(
+                children: <Widget>[
+                  ListTile(
+                    title: Text(category.name),
+                    leading: CircleAvatar(
+                        child: Icon(
+                      category.icon,
+                      size: 20,
+                    )),
                   ),
-                ),
-                Divider(
-                  thickness: 2,
-                ),
-                Container(
-                  width: 20,
-                  height: 50,
-                  child: ElevatedButton(
-                    child: Text(model.getSelectedDate()),
-                    onPressed: () async {
-                      await model.selectDate(context);
-                    },
-                  ),
-                ),
-                UIHelper.verticalSpaceLarge(),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: backgroundColor),
+                  UIHelper.verticalSpaceMedium(),
+                  buildTextField(model.memoController, 'Memo:', "Enter a memo for your transcation", Icons.edit, false),
+                  UIHelper.verticalSpaceMedium(),
+                  buildTextField(
+                      model.amountController, 'Amount:', "Enter a the amount for the transcation", Icons.attach_money, true),
+                  UIHelper.verticalSpaceMedium(),
+                  Align(
+                    alignment: Alignment.centerLeft,
                     child: Text(
-                      'ADD',
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      'SELECT DATE:',
+                      style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
                     ),
-                    onPressed: () async {
-                      await model.addTransaction(context);
-                    },
                   ),
-                )
-              ],
+                  Divider(
+                    thickness: 2,
+                  ),
+                  Container(
+                    width: 20,
+                    height: 50,
+                    child: ElevatedButton(
+                      child: Text(model.getSelectedDate()),
+                      onPressed: () async {
+                        await model.selectDate(context);
+                      },
+                    ),
+                  ),
+                  UIHelper.verticalSpaceLarge(),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: model.loading
+                        ? CircularProgressIndicator()
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: backgroundColor),
+                            child: Text(
+                              'ADD',
+                              style: TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                            onPressed: () {
+                              if (_formkey.currentState!.validate()) {
+                                model.addTransaction(context);
+                              }
+                            },
+                          ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -81,6 +90,11 @@ class InsertTranscationView extends StatelessWidget {
 
   TextFormField buildTextField(TextEditingController controller, String text, String helperText, IconData icon, isNumeric) {
     return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Required field";
+        }
+      },
       cursorColor: Colors.black,
       maxLength: isNumeric ? 10 : 40,
       keyboardType: isNumeric ? TextInputType.number : TextInputType.text,

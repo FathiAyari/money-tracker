@@ -4,10 +4,10 @@ import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
 import 'package:moneymanager/ui/widgets/details_view_widgets/details_card.dart';
 
-import '../../core/database/transaction.dart';
+import '../../core/models/transaction.dart';
 
 class DetailsView extends StatelessWidget {
-  final Transaction transaction;
+  final TransactionProcess transaction;
   DetailsView(this.transaction);
 
   @override

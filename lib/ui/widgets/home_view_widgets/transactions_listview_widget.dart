@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanager/core/database/transaction.dart';
+import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/viewmodels/home_model.dart';
 
 class TransactionsListView extends StatefulWidget {
-  final List<Transaction> transactions;
+  final List<TransactionProcess> transactions;
   final HomeModel model;
 
   const TransactionsListView(
@@ -41,7 +41,7 @@ class _TransactionsListViewState extends State<TransactionsListView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          transaction.day + ', ' + transaction.date.toString(),
+                          transaction.day + ', ' + transaction.month,
                           style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                         Text(

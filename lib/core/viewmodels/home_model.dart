@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:moneymanager/core/database/transaction.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
+import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/services/category_icon_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
@@ -16,7 +16,7 @@ class HomeModel extends BaseModel {
 
   List months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  List<Transaction> transactions = [];
+  List<TransactionProcess> transactions = [];
   bool isCollabsed = false;
   String appBarTitle = DateFormat.MMM().format(DateTime.now()); // selected month
   late int selectedMonthIndex; // from month list above

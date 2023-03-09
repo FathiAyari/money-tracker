@@ -3,7 +3,7 @@ import 'package:moneymanager/core/services/category_icon_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
 import '../../locator.dart';
-import '../database/transaction.dart';
+import '../models/transaction.dart';
 
 class DetailsModel extends BaseModel {
   final CategoryIconService _categoryIconService = locator<CategoryIconService>();
@@ -34,5 +34,5 @@ class DetailsModel extends BaseModel {
     }
   }
 
-  Future deleteTransacation(Transaction transaction) async {}
+  Future deleteTransacation(TransactionProcess transaction) async {}
 }

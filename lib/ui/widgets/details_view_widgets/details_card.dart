@@ -3,10 +3,10 @@ import 'package:moneymanager/core/viewmodels/details_model.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 import 'package:moneymanager/ui/widgets/details_view_widgets/details_table.dart';
 
-import '../../../core/database/transaction.dart';
+import '../../../core/models/transaction.dart';
 
 class DetailsCard extends StatelessWidget {
-  final Transaction transaction;
+  final TransactionProcess transaction;
   final DetailsModel model;
   DetailsCard({required this.transaction, required this.model});
 

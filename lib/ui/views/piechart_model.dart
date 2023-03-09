@@ -2,7 +2,7 @@ import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/services/category_icon_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
-import '../../core/database/transaction.dart';
+import '../../core/models/transaction.dart';
 import '../../locator.dart';
 
 class PieChartModel extends BaseModel {
@@ -10,7 +10,7 @@ class PieChartModel extends BaseModel {
 
   final CategoryIconService _categoryIconService = locator<CategoryIconService>();
 
-  List<Transaction> transactions = [];
+  List<TransactionProcess> transactions = [];
 
   int selectedMonthIndex = 0;
 
@@ -56,7 +56,7 @@ class PieChartModel extends BaseModel {
     notifyListeners();
   }
 
-  Map<String, double> getDefaultDataMap(List<Transaction> transactions) {
+  Map<String, double> getDefaultDataMap(List<TransactionProcess> transactions) {
     Map<String, double> fullExpensesMap = {
       'Food': 0,
       'Bills': 0,
