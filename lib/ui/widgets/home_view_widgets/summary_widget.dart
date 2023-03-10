@@ -3,10 +3,10 @@ import 'package:moneymanager/ui/shared/text_styles.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 
 class SummaryWidget extends StatelessWidget {
-  final int income;
-  final int expense;
+  var income;
+  var expense;
 
-  const SummaryWidget({required this.income, required this.expense});
+  SummaryWidget({required this.income, required this.expense});
 
   @override
   Widget build(BuildContext context) {

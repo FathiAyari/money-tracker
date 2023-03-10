@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/services/transaction_sercvices.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
@@ -6,6 +7,7 @@ import 'package:moneymanager/core/viewmodels/base_model.dart';
 class InsertTransactionModel extends BaseModel {
   TextEditingController memoController = TextEditingController();
   TextEditingController amountController = TextEditingController();
+  var user = GetStorage().read("user");
   bool loading = false;
   List months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -64,7 +66,7 @@ class InsertTransactionModel extends BaseModel {
         categoryindex: cateogryIndex);
     loading = true;
     notifyListeners();
-    TransactionServices.addTransaction(newTransaction).then((value) {
+    TransactionServices.addTransaction(newTransaction, user['uid']).then((value) {
       loading = false;
       memoController.clear();
       amountController.clear();

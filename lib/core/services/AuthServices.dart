@@ -11,7 +11,7 @@ class AuthServices {
   Future<bool> signIn(String emailController, String passwordController) async {
     try {
       await auth.signInWithEmailAndPassword(email: emailController, password: passwordController);
-      print("done");
+      await saveUserInLocalStorage();
       return true;
     } on FirebaseException catch (e) {
       print(e.message);
@@ -24,6 +24,7 @@ class AuthServices {
       await auth.createUserWithEmailAndPassword(email: emailController, password: passwordController);
 
       await saveUser(AppUser(uid: user!.uid, userName: name, email: emailController));
+      saveUserInLocalStorage();
       return true;
     } on FirebaseException catch (e) {
       print(e);
@@ -43,17 +44,28 @@ class AuthServices {
   saveUser(AppUser user) async {
     try {
       await userCollection.doc(user.uid).set(user.Tojson());
+      await userCollection.doc(user.uid).update({"income": 0, "expenses": 0});
     } catch (e) {}
   }
 
   User? get user => auth.currentUser;
 
-  saveConnectedUser() {
-    var storage = GetStorage();
-    storage.write("auth", 1);
+  logout() {
+    GetStorage().remove("auth");
+    GetStorage().remove("user");
   }
 
-  logout() {
+  saveUserInLocalStorage() async {
+    var storage = GetStorage();
+    final uid = user!.uid;
+    var currentUser = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    AppUser appUser = AppUser.fromJson(currentUser.data() as Map<String, dynamic>);
+    await storage.write("user", {
+      "uid": appUser.uid,
+      "userName": appUser.userName,
+      "Email": appUser.email,
+    });
 
-    GetStorage().remove("auth");  }
+    storage.write("auth", 1);
+  }
 }

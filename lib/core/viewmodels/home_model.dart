@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/models/transaction.dart';
@@ -9,6 +10,7 @@ import 'package:moneymanager/core/viewmodels/base_model.dart';
 import '../../locator.dart';
 
 class HomeModel extends BaseModel {
+  var user = GetStorage().read("user");
   final CategoryIconService _categoryIconService = locator<CategoryIconService>();
 
   ScrollController scrollController = new ScrollController(); // set controller on scrolling
@@ -112,4 +114,6 @@ class HomeModel extends BaseModel {
       );
     }
   }
+
+  double userBalance = 0;
 }

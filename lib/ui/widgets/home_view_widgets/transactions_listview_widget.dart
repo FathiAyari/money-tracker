@@ -20,7 +20,6 @@ class _TransactionsListViewState extends State<TransactionsListView> {
   Widget build(BuildContext context) {
     return Flexible(
       child: ListView(
-        controller: widget.model.scrollController,
         padding: EdgeInsets.all(8),
         children: widget.transactions.map((transaction) {
           return Card(

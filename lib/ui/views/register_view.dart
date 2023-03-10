@@ -108,6 +108,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                               .signUp(emailController.text, passwordController.text, nameController.text)
                                               .then((value) async {
                                             if (value) {
+                                              setState(() {
+                                                loading = false;
+                                                Get.toNamed("/home");
+                                              });
                                             } else {
                                               Fluttertoast.showToast(
                                                   msg: "Invalid cridentials",

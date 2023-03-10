@@ -180,7 +180,6 @@ class _LoginScreenState extends State<SignInScreen> {
                                               .signIn(emailController.text, passwordController.text)
                                               .then((value) async {
                                             if (value) {
-                                              AuthServices().saveConnectedUser();
                                               Get.toNamed("/home");
                                             } else {
                                               Fluttertoast.showToast(
