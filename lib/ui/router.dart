@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/ui/views/details_view.dart';
+import 'package:moneymanager/ui/views/edit_view.dart';
 import 'package:moneymanager/ui/views/home_view.dart';
 import 'package:moneymanager/ui/views/sign_in_view.dart';
 import 'package:moneymanager/ui/views/spash_view.dart';
@@ -31,9 +32,12 @@ class Routes {
             builder: (_) => InsertTranscationView(category: args.elementAt(0), selectedCategory: args.elementAt(1)));
       case '/chart':
         return MaterialPageRoute(builder: (_) => PieChartView());
-      case 'details':
+      case '/details':
         var transaction = settings.arguments as TransactionProcess;
         return MaterialPageRoute(builder: (_) => DetailsView(transaction));
+      case '/edit':
+        var transaction = settings.arguments as TransactionProcess;
+        return MaterialPageRoute(builder: (_) => EditView(transaction));
       /*   case 'edit':
         var transaction = settings.arguments as Transaction;
         return MaterialPageRoute(builder: (_) => EditView(transaction));

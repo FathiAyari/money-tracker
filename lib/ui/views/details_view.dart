@@ -16,7 +16,7 @@ class DetailsView extends StatelessWidget {
         model: DetailsModel(),
         builder: (context, model, child) => WillPopScope(
               onWillPop: () {
-                Navigator.of(context).pushReplacementNamed('home');
+                Navigator.of(context).pushReplacementNamed('/home');
                 return Future.value(true);
               },
               child: Scaffold(
@@ -24,7 +24,7 @@ class DetailsView extends StatelessWidget {
                   leading: InkWell(
                     child: Icon(Icons.arrow_back),
                     onTap: () {
-                      Navigator.of(context).pushReplacementNamed('home');
+                      Navigator.of(context).pushReplacementNamed('/home');
                     },
                   ),
                   title: Row(
@@ -58,7 +58,7 @@ class DetailsView extends StatelessWidget {
                         child: Icon(Icons.edit, color: Colors.black38),
                         backgroundColor: backgroundColor,
                         onPressed: () {
-                          Navigator.of(context).pushNamed('edit', arguments: transaction);
+                          Navigator.of(context).pushNamed('/edit', arguments: transaction);
                         },
                       ),
                     )
@@ -81,7 +81,7 @@ class DetailsView extends StatelessWidget {
                   "Delete",
                 ),
                 onPressed: () async {
-                  await model.deleteTransacation(transaction);
+                  await model.deleteTransacation(context, transaction);
                   // hide dialog
                   Navigator.of(context).pop();
                   // exit detailsscreen
@@ -93,6 +93,7 @@ class DetailsView extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               )
             ],
           );

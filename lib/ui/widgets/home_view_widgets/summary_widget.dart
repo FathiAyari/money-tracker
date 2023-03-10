@@ -19,40 +19,46 @@ class SummaryWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text('Income', style: summaryTextStyle),
-                  UIHelper.verticalSpaceSmall(),
-                  Text(income.toString(), style: summaryNumberTextStyle)
-                ],
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Text('Income', style: summaryTextStyle),
+                    UIHelper.verticalSpaceSmall(),
+                    FittedBox(child: Text(income.toString(), style: summaryNumberTextStyle))
+                  ],
+                ),
               ),
               Text(
                 '|',
                 style: TextStyle(fontSize: 40, color: Colors.blueGrey, fontWeight: FontWeight.w200),
               ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    'Expense',
-                    style: summaryTextStyle,
-                  ),
-                  UIHelper.verticalSpaceSmall(),
-                  Text(expense.toString(), style: summaryNumberTextStyle)
-                ],
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Expense',
+                      style: summaryTextStyle,
+                    ),
+                    UIHelper.verticalSpaceSmall(),
+                    FittedBox(child: Text(expense.toString(), style: summaryNumberTextStyle))
+                  ],
+                ),
               ),
               Text(
                 '|',
                 style: TextStyle(fontSize: 40, color: Colors.blueGrey, fontWeight: FontWeight.w200),
               ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    'Balance',
-                    style: summaryTextStyle,
-                  ),
-                  UIHelper.verticalSpaceSmall(),
-                  Text((income - expense).toString(), style: summaryNumberTextStyle)
-                ],
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Balance',
+                      style: summaryTextStyle,
+                    ),
+                    UIHelper.verticalSpaceSmall(),
+                    FittedBox(child: Text((income - expense).toString(), style: summaryNumberTextStyle))
+                  ],
+                ),
               ),
             ],
           ),

@@ -114,7 +114,15 @@ class _HomeViewState extends State<HomeView> {
                           dynamic expenses = 0;
                           List<TransactionProcess> trProcess = [];
                           for (var value in data) {
-                            trProcess.add(TransactionProcess.fromJson(value.data() as Map<String, dynamic>));
+                            TransactionProcess tr = TransactionProcess(
+                                type: value.get('type'),
+                                id: value.id,
+                                day: value.get('day'),
+                                month: value.get('month'),
+                                memo: value.get('memo'),
+                                amount: value.get('amount'),
+                                categoryindex: value.get('categoryindex'));
+                            trProcess.add(tr);
                             if (value.get("type") == "expense") {
                               expenses = expenses + value.get("amount");
                             } else {

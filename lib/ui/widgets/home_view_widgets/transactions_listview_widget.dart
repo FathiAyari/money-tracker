@@ -25,7 +25,7 @@ class _TransactionsListViewState extends State<TransactionsListView> {
           return Card(
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, "details", arguments: transaction).then((value) => {
+                Navigator.pushNamed(context, "/details", arguments: transaction).then((value) => {
                       if (value != null)
                         {
                           // if (value) {widget.model.init()}

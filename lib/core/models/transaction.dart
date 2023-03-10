@@ -3,7 +3,7 @@ class TransactionProcess {
   final String day;
   final String month;
   final String memo;
-  final int? id;
+  final String? id;
   final int amount;
   final int categoryindex;
   TransactionProcess(
