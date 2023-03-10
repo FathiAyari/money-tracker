@@ -121,6 +121,7 @@ class _HomeViewState extends State<HomeView> {
                               income = income + value.get("amount");
                             }
                           }
+                          print(trProcess.length);
                           return SingleChildScrollView(
                             child: Container(
                               height: Constants.screenHeight * 0.6,
@@ -164,6 +165,6 @@ class _HomeViewState extends State<HomeView> {
   }
 
   buildList(HomeModel model, List<TransactionProcess> transactionProcess) {
-    return transactionProcess == 0 ? EmptyTransactionsWidget() : TransactionsListView(transactionProcess, model);
+    return transactionProcess.isEmpty ? EmptyTransactionsWidget() : TransactionsListView(transactionProcess, model);
   }
 }
