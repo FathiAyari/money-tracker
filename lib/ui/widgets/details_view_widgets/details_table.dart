@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/models/transaction.dart';
 
 class DetailsTable extends StatelessWidget {
@@ -11,20 +12,19 @@ class DetailsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      columnWidths: {1: FixedColumnWidth(250)},
+    return Column(
       children: [
-        TableRow(
+        Row(
           children: [
             Text(
-              "Category",
+              "category".tr + " : ",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 18,
               ),
             ),
             Text(
-              transaction.type,
+              transaction.type.tr,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
@@ -33,10 +33,10 @@ class DetailsTable extends StatelessWidget {
             ),
           ],
         ),
-        TableRow(
+        Row(
           children: [
             Text(
-              "Money",
+              "amount".tr + " : ",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 18,
@@ -52,10 +52,10 @@ class DetailsTable extends StatelessWidget {
             ),
           ],
         ),
-        TableRow(
+        Row(
           children: [
             Text(
-              "Date",
+              "date".tr + " : ",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 18,
@@ -71,10 +71,10 @@ class DetailsTable extends StatelessWidget {
             ),
           ],
         ),
-        TableRow(
+        Row(
           children: [
             Text(
-              "Memo",
+              "label".tr + " : ",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 18,

@@ -47,7 +47,7 @@ class InsertTransactionModel extends BaseModel {
 
   String getSelectedDate() {
     if (int.parse(selectedDay) == DateTime.now().day && DateTime.now().month == months.indexOf(selectedMonth) + 1) {
-      return 'Today ' + selectedMonth + ',' + selectedDay;
+      return selectedMonth + ',' + selectedDay;
     } else {
       return selectedMonth + ',' + selectedDay;
     }

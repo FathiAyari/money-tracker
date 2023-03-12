@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TransactionTypeSpinner extends StatelessWidget {
   final selectedItem;
@@ -11,11 +12,11 @@ class TransactionTypeSpinner extends StatelessWidget {
         value: selectedItem,
         items: [
           DropdownMenuItem(
-            child: Text("Income"),
+            child: Text("income".tr),
             value: 1,
           ),
           DropdownMenuItem(
-            child: Text("Expense"),
+            child: Text("expense".tr),
             value: 2,
           ),
         ],

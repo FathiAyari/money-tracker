@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/viewmodels/edit_model.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
@@ -17,7 +18,7 @@ class EditView extends StatelessWidget {
       onModelReady: (model) => model.init(transaction),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text('Edit'),
+          title: Text('edit'.tr),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -32,15 +33,14 @@ class EditView extends StatelessWidget {
                 )),
               ),
               UIHelper.verticalSpaceMedium(),
-              buildTextField(model.memoController, 'Memo:', "Enter a memo for your transcation", Icons.edit, false),
+              buildTextField(model.memoController, 'label'.tr + ' : ', "enter_label".tr, Icons.edit, false),
               UIHelper.verticalSpaceMedium(),
-              buildTextField(
-                  model.amountController, 'Amount:', "Enter a the amount for the transcation", Icons.attach_money, true),
+              buildTextField(model.amountController, 'amount'.tr + ' : ', "enter_amount".tr, Icons.attach_money, true),
               UIHelper.verticalSpaceMedium(),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'SELECT DATE:',
+                  'select_date'.tr + ' : ',
                   style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
                 ),
               ),
@@ -66,7 +66,7 @@ class EditView extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: backgroundColor),
                   child: Text(
-                    'EDIT',
+                    'edit'.tr,
                     style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                   onPressed: () async {

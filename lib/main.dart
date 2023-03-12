@@ -6,11 +6,13 @@ import 'package:moneymanager/ui/router.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 
 import 'locator.dart';
+import 'ui/shared/internacionalization/languages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // initialize firebase app
   await GetStorage.init(); // initialize getStorage
+
   setupLocator();
   runApp(MyApp());
 }
@@ -19,6 +21,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: Languages(),
+      locale: Locale(GetStorage().read("locale")),
+      fallbackLocale: Locale("en"),
       title: 'Money Manager',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

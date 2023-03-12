@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 
 class EmptyTransactionsWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class EmptyTransactionsWidget extends StatelessWidget {
         ),
         UIHelper.verticalSpaceMedium(),
         Text(
-          'No transactions\nTap + to add one.',
+          'no_tr'.tr,
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.grey, fontSize: 18),
         ),

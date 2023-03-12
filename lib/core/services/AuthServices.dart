@@ -24,7 +24,7 @@ class AuthServices {
       await auth.createUserWithEmailAndPassword(email: emailController, password: passwordController);
 
       await saveUser(AppUser(uid: user!.uid, userName: name, email: emailController));
-      saveUserInLocalStorage();
+      await saveUserInLocalStorage();
       return true;
     } on FirebaseException catch (e) {
       print(e);

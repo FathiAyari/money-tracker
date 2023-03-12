@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/viewmodels/home_model.dart';
@@ -31,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
-            content: Text("Do you want to leave ?"),
+            content: Text("wanna_leave?".tr),
             actions: [Negative(context), Positive()],
           );
         });
@@ -45,8 +46,8 @@ class _HomeViewState extends State<HomeView> {
           onPressed: () {
             exit(0);
           },
-          child: const Text(
-            "Yes",
+          child: Text(
+            "yes".tr,
             style: TextStyle(
               color: Color(0xffEAEDEF),
             ),
@@ -59,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
         onPressed: () {
           Navigator.pop(context); // fermeture de dialog
         },
-        child: Text("No"));
+        child: Text("no".tr));
   }
 
   @override
@@ -71,7 +72,7 @@ class _HomeViewState extends State<HomeView> {
         onWillPop: avoidReturnButton,
         child: Scaffold(
           appBar: buildAppBar(model.appBarTitle, model),
-          drawer: AppDrawer(context),
+          drawer: AppDrawer(),
           floatingActionButton: Visibility(
             visible: model.show,
             child: AppFAB(model.closeMonthPicker),
@@ -89,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
                           height: Constants.screenHeight * 0.06,
                         ),
                         Text(
-                          "Welcome ${model.user["userName"].toString().toUpperCase()}",
+                          "${'welcome'.tr} ${model.user["userName"].toString().toUpperCase()}",
                           style: TextStyle(fontSize: 20),
                         ),
                       ],
@@ -98,41 +99,40 @@ class _HomeViewState extends State<HomeView> {
               if (model.state == ViewState.Busy)
                 Center(child: CircularProgressIndicator())
               else
-                Stack(
-                  children: <Widget>[
-                    StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(model.user['uid'])
-                          .collection("transactions")
-                          .where("month", isEqualTo: model.appBarTitle)
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          var data = snapshot.data!.docs.toList();
-                          dynamic income = 0;
-                          dynamic expenses = 0;
-                          List<TransactionProcess> trProcess = [];
-                          for (var value in data) {
-                            TransactionProcess tr = TransactionProcess(
-                                type: value.get('type'),
-                                id: value.id,
-                                day: value.get('day'),
-                                month: value.get('month'),
-                                memo: value.get('memo'),
-                                amount: value.get('amount'),
-                                categoryindex: value.get('categoryindex'));
-                            trProcess.add(tr);
-                            if (value.get("type") == "expense") {
-                              expenses = expenses + value.get("amount");
-                            } else {
-                              income = income + value.get("amount");
+                Expanded(
+                  child: Stack(
+                    children: <Widget>[
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(model.user['uid'])
+                            .collection("transactions")
+                            .where("month", isEqualTo: model.appBarTitle)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var data = snapshot.data!.docs.toList();
+                            dynamic income = 0;
+                            dynamic expenses = 0;
+                            List<TransactionProcess> trProcess = [];
+                            for (var value in data) {
+                              TransactionProcess tr = TransactionProcess(
+                                  type: value.get('type'),
+                                  id: value.id,
+                                  day: value.get('day'),
+                                  month: value.get('month'),
+                                  memo: value.get('memo'),
+                                  amount: value.get('amount'),
+                                  categoryindex: value.get('categoryindex'));
+                              trProcess.add(tr);
+                              if (value.get("type") == "expense") {
+                                expenses = expenses + value.get("amount");
+                              } else {
+                                income = income + value.get("amount");
+                              }
                             }
-                          }
-                          print(trProcess.length);
-                          return SingleChildScrollView(
-                            child: Container(
-                              height: Constants.screenHeight * 0.6,
+                            print(trProcess.length);
+                            return Container(
                               child: Column(
                                 children: <Widget>[
                                   SummaryWidget(
@@ -142,17 +142,17 @@ class _HomeViewState extends State<HomeView> {
                                   buildList(model, trProcess),
                                 ],
                               ),
-                            ),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
-                    ),
-                    model.isCollabsed
-                        ? PickMonthOverlay(model: model, showOrHide: model.isCollabsed, context: context)
-                        : Container(),
-                  ],
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
+                      model.isCollabsed
+                          ? PickMonthOverlay(model: model, showOrHide: model.isCollabsed, context: context)
+                          : Container(),
+                    ],
+                  ),
                 ),
             ],
           ),

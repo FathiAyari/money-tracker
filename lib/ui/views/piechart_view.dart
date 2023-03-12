@@ -1,12 +1,13 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/shared/dimensions/dimensions.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-import '../../views/piechart_model.dart';
+import '../../core/viewmodels/piechart_model.dart';
 
 class PieChartView extends StatelessWidget {
   const PieChartView({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class PieChartView extends StatelessWidget {
           ),
           backgroundColor: backgroundColor,
           title: Text(
-            'Chart',
+            'statistics'.tr,
             style: TextStyle(color: Colors.black),
           ),
         ),
@@ -60,7 +61,7 @@ class PieChartView extends StatelessWidget {
                             ),
                             onChanged: (val) => model.changeType(val),
                           ),
-                          model.dataMap.length == 0 ? Text('No Data for this month') : PieChart(dataMap: model.dataMap),
+                          model.dataMap.length == 0 ? Text('No_Data_for_this_month'.tr) : PieChart(dataMap: model.dataMap),
                         ],
                       ),
                     ),

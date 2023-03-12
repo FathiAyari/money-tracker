@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/viewmodels/home_model.dart';
 
@@ -44,7 +45,7 @@ class _TransactionsListViewState extends State<TransactionsListView> {
                           style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                         Text(
-                          transaction.type + ": " + transaction.amount.toString(),
+                          transaction.type.tr + ": " + transaction.amount.toString(),
                           style: TextStyle(fontWeight: FontWeight.w300),
                         )
                       ],

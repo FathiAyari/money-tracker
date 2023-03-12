@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/viewmodels/new_transcation_model.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
@@ -33,7 +34,7 @@ class NewTransactionView extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(e.name),
+                            Text(e.name.tr),
                             UIHelper.verticalSpaceSmall(),
                             CircleAvatar(
                               radius: 30,

@@ -8,8 +8,8 @@ import 'package:moneymanager/ui/views/spash_view.dart';
 import '../core/models/transaction.dart';
 import 'views/insert_transaction_view.dart';
 import 'views/new_transaction_view.dart';
+import 'views/piechart_view.dart';
 import 'views/register_view.dart';
-import 'widgets/home_view_widgets/piechart_view.dart';
 
 const String initialRoute = "login";
 

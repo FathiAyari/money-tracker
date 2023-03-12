@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/models/category.dart';
 import 'package:moneymanager/core/viewmodels/insert_transaction_model.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
@@ -18,7 +19,7 @@ class InsertTranscationView extends StatelessWidget {
       onModelReady: (model) => model.init(selectedCategory, category.index),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: selectedCategory == 1 ? Text('Income') : Text('Expense'),
+          title: selectedCategory == 1 ? Text('income'.tr) : Text('expense'.tr),
         ),
         body: SafeArea(
           child: Padding(
@@ -36,15 +37,14 @@ class InsertTranscationView extends StatelessWidget {
                     )),
                   ),
                   UIHelper.verticalSpaceMedium(),
-                  buildTextField(model.memoController, 'Memo:', "Enter a memo for your transcation", Icons.edit, false),
+                  buildTextField(model.memoController, 'label'.tr + " : ", "enter_label".tr, Icons.edit, false),
                   UIHelper.verticalSpaceMedium(),
-                  buildTextField(
-                      model.amountController, 'Amount:', "Enter a the amount for the transcation", Icons.attach_money, true),
+                  buildTextField(model.amountController, 'amount'.tr + " : ", "enter_amount".tr, Icons.attach_money, true),
                   UIHelper.verticalSpaceMedium(),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'SELECT DATE:',
+                      'select_date'.tr,
                       style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
                     ),
                   ),
@@ -69,7 +69,7 @@ class InsertTranscationView extends StatelessWidget {
                         : ElevatedButton(
                             style: ElevatedButton.styleFrom(backgroundColor: backgroundColor),
                             child: Text(
-                              'ADD',
+                              'add'.tr,
                               style: TextStyle(fontSize: 16, color: Colors.black),
                             ),
                             onPressed: () {
@@ -92,7 +92,7 @@ class InsertTranscationView extends StatelessWidget {
     return TextFormField(
       validator: (value) {
         if (value!.isEmpty) {
-          return "Required field";
+          return "required_field".tr;
         }
       },
       cursorColor: Colors.black,

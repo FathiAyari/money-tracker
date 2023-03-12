@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/ui/shared/text_styles.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 
@@ -22,7 +23,7 @@ class SummaryWidget extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    Text('Income', style: summaryTextStyle),
+                    Text('income'.tr, style: summaryTextStyle),
                     UIHelper.verticalSpaceSmall(),
                     FittedBox(child: Text(income.toString(), style: summaryNumberTextStyle))
                   ],
@@ -36,7 +37,7 @@ class SummaryWidget extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      'Expense',
+                      'expenses'.tr,
                       style: summaryTextStyle,
                     ),
                     UIHelper.verticalSpaceSmall(),
@@ -52,7 +53,7 @@ class SummaryWidget extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      'Balance',
+                      'balance'.tr,
                       style: summaryTextStyle,
                     ),
                     UIHelper.verticalSpaceSmall(),

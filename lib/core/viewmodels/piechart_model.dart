@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/services/category_icon_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
-import '../../core/models/transaction.dart';
 import '../../locator.dart';
+import '../models/transaction.dart';
 
 class PieChartModel extends BaseModel {
   var user = GetStorage().read("user");
@@ -21,7 +22,7 @@ class PieChartModel extends BaseModel {
 
   String type = 'expense';
 
-  List<String> types = ["Income", "Expense"];
+  List<String> types = ["income".tr, "expense".tr];
 
   init(bool firstTime) async {
     transactions.clear();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moneymanager/core/viewmodels/details_model.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
@@ -30,7 +31,7 @@ class DetailsView extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Details'),
+                      Text('details'.tr),
                       InkWell(
                         child: Icon(Icons.delete),
                         onTap: () {
@@ -73,12 +74,12 @@ class DetailsView extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Delete"),
-            content: Text("Are you sure do you want to delete this transaction"),
+            title: Text("delete".tr),
+            content: Text("delete_confirm".tr),
             actions: <Widget>[
               ElevatedButton(
                 child: Text(
-                  "Delete",
+                  "delete".tr,
                 ),
                 onPressed: () async {
                   await model.deleteTransacation(context, transaction);
@@ -89,7 +90,7 @@ class DetailsView extends StatelessWidget {
                 },
               ),
               ElevatedButton(
-                child: Text("Cancel"),
+                child: Text("cancel".tr),
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
