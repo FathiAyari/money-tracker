@@ -28,7 +28,7 @@ class PieChartView extends StatelessWidget {
           ),
         ),
         body: model.state == ViewState.Busy
-            ? CircularProgressIndicator()
+            ? Center(child: CircularProgressIndicator())
             : SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

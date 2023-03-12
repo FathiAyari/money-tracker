@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/services/category_icon_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
@@ -6,6 +8,7 @@ import '../../core/models/transaction.dart';
 import '../../locator.dart';
 
 class PieChartModel extends BaseModel {
+  var user = GetStorage().read("user");
   List<String> months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   final CategoryIconService _categoryIconService = locator<CategoryIconService>();
@@ -21,14 +24,13 @@ class PieChartModel extends BaseModel {
   List<String> types = ["Income", "Expense"];
 
   init(bool firstTime) async {
+    transactions.clear();
     if (firstTime) selectedMonthIndex = DateTime.now().month - 1;
 
     setState(ViewState.Busy);
     notifyListeners();
 
-/*    transactions = await _moorDatabaseService.getAllTransactionsForType(
-        months.elementAt(selectedMonthIndex), type);*/
-
+    await getData();
     dataMap = getDefaultDataMap(transactions);
 
     transactions.forEach((element) {
@@ -42,10 +44,9 @@ class PieChartModel extends BaseModel {
   }
 
   changeSelectedMonth(int val) async {
+    transactions.clear();
     selectedMonthIndex = val;
-/*
-    transactions = await _moorDatabaseService.getAllTransactionsForType(
-        months.elementAt(selectedMonthIndex), type);*/
+    await getData();
     // clear old data
     dataMap = getDefaultDataMap(transactions);
 
@@ -124,17 +125,28 @@ class PieChartModel extends BaseModel {
     } else {
       type = 'expense';
     }
-
+    print("type " + type);
     await init(false);
   }
 
   void prepareDataMap(element) {
     if (type == 'income') {
-      dataMap[_categoryIconService.incomeList.elementAt(element.categoryindex).name] =
-          dataMap[_categoryIconService.incomeList.elementAt(element.categoryindex).name]! + element.amount;
+      dataMap[_categoryIconService.incomeList.elementAt(element.categoryindex).name] = element.amount + .0;
     } else {
-      dataMap[_categoryIconService.expenseList.elementAt(element.categoryindex).name] =
-          (dataMap[_categoryIconService.expenseList.elementAt(element.categoryindex).name]! + element.amount);
+      dataMap[_categoryIconService.expenseList.elementAt(element.categoryindex).name] = element.amount + .0;
+    }
+  }
+
+  getData() async {
+    var data = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(user['uid'])
+        .collection("transactions")
+        .where("type", isEqualTo: type)
+        .where("month", isEqualTo: months.elementAt(selectedMonthIndex))
+        .get();
+    for (var test in data.docs.toList()) {
+      transactions.add(TransactionProcess.fromJson(test.data() as Map<String, dynamic>));
     }
   }
 }
