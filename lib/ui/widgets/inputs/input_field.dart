@@ -27,6 +27,8 @@ class InputField extends StatelessWidget {
               if (!emailValid) {
                 return " Invalid email format";
               }
+            } else if (textInputType == TextInputType.visiblePassword && controller.text.length < 6) {
+              return "Password should be longer than 8";
             }
           },
           keyboardType: textInputType,
