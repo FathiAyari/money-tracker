@@ -5,6 +5,7 @@ import 'package:moneymanager/core/viewmodels/insert_transaction_model.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
+import 'package:moneymanager/ui/widgets/inputs/transactions_field.dart';
 
 class InsertTranscationView extends StatelessWidget {
   final Category category;
@@ -37,9 +38,19 @@ class InsertTranscationView extends StatelessWidget {
                     )),
                   ),
                   UIHelper.verticalSpaceMedium(),
-                  buildTextField(model.memoController, 'label'.tr + " : ", "enter_label".tr, Icons.edit, false),
+                  TransactionField(
+                      controller: model.memoController,
+                      text: 'label'.tr + ' : ',
+                      helperText: "enter_label".tr,
+                      icon: Icons.edit,
+                      isNumeric: false),
                   UIHelper.verticalSpaceMedium(),
-                  buildTextField(model.amountController, 'amount'.tr + " : ", "enter_amount".tr, Icons.attach_money, true),
+                  TransactionField(
+                      controller: model.amountController,
+                      text: 'amount'.tr + ' : ',
+                      helperText: "enter_amount".tr,
+                      icon: Icons.attach_money,
+                      isNumeric: true),
                   UIHelper.verticalSpaceMedium(),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -84,41 +95,6 @@ class InsertTranscationView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  TextFormField buildTextField(TextEditingController controller, String text, String helperText, IconData icon, isNumeric) {
-    return TextFormField(
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "required_field".tr;
-        }
-      },
-      cursorColor: Colors.black,
-      maxLength: isNumeric ? 10 : 40,
-      keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
-      controller: controller,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        icon: Icon(
-          icon,
-          color: Colors.black,
-        ),
-        labelText: text,
-        suffixIcon: InkWell(
-          onTap: () {
-            controller.clear();
-          },
-          child: Icon(
-            Icons.clear,
-            color: Colors.black,
-          ),
-        ),
-        labelStyle: TextStyle(
-          color: Color(0xFFFF000000),
-        ),
-        helperText: helperText,
       ),
     );
   }

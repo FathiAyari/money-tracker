@@ -29,9 +29,7 @@ class HomeModel extends BaseModel {
   monthClicked(String clickedMonth) async {
     selectedMonthIndex = months.indexOf(clickedMonth);
     appBarTitle = clickedMonth;
-    //  transactions = await _moorDatabaseService.getAllTransactions(appBarTitle);
-    // expenseSum = await _moorDatabaseService.getExpenseSum(appBarTitle);
-    //incomeSum = await _moorDatabaseService.getIncomeSum(appBarTitle);
+
     titleClicked();
   }
 

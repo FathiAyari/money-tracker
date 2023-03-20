@@ -62,7 +62,7 @@ class InsertTransactionModel extends BaseModel {
         day: selectedDay,
         month: selectedMonth,
         memo: memoController.text,
-        amount: int.parse(amount),
+        amount: double.parse(amount),
         categoryindex: cateogryIndex);
     loading = true;
     notifyListeners();
@@ -72,6 +72,6 @@ class InsertTransactionModel extends BaseModel {
       amountController.clear();
       notifyListeners();
     });
-    print("categoryIndex:${cateogryIndex}");
+    Navigator.pop(context);
   }
 }

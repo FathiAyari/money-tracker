@@ -79,7 +79,7 @@ class EditModel extends BaseModel {
         day: selectedDay,
         month: selectedMonth,
         memo: memoController.text,
-        amount: int.parse(amount),
+        amount: double.parse(amount),
         categoryindex: transaction.categoryindex);
     FirebaseFirestore.instance
         .collection("users")

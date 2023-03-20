@@ -4,7 +4,7 @@ class TransactionProcess {
   final String month;
   final String memo;
   final String? id;
-  final int amount;
+  final double amount;
   final int categoryindex;
   TransactionProcess(
       {required this.type,

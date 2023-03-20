@@ -53,6 +53,7 @@ class Languages extends Translations {
           "select_date": "SELECT DATE",
           "required_field": "Required field",
           "no_tr": "No transactions\nTap + to add one.",
+          "numeric_field": "Value has to be numeric",
         },
         'fr': {
           "no_tr": "Aucune transaction\n Appuyez sur + pour en ajouter une.",
@@ -100,6 +101,7 @@ class Languages extends Translations {
           "category": "Catégorie",
           "amount": "Montant",
           "date": "Date",
+          "numeric_field": "Valeur doit étre numérique",
         },
       };
 }

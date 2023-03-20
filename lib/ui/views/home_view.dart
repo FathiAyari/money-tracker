@@ -122,7 +122,7 @@ class _HomeViewState extends State<HomeView> {
                                   day: value.get('day'),
                                   month: value.get('month'),
                                   memo: value.get('memo'),
-                                  amount: value.get('amount'),
+                                  amount: value.get('amount') + .0,
                                   categoryindex: value.get('categoryindex'));
                               trProcess.add(tr);
                               if (value.get("type") == "expense") {
