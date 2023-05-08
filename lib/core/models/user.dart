@@ -1,15 +1,19 @@
 import 'package:moneymanager/core/models/transaction.dart';
 
 class AppUser {
-  String userName;
-  String uid;
-  String email;
+  String? userName;
+  String? uid;
+  String? email;
+  String? role;
+  int? ceiling;
   List<TransactionProcess>? transactions;
 
-  AppUser({required this.uid, required this.userName, required this.email, this.transactions});
+  AppUser({this.uid, this.userName, this.email, this.transactions, this.role, this.ceiling});
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
       uid: json["uid"],
+      role: json["role"],
+      ceiling: json["ceiling"],
       userName: json["userName"],
       email: json["Email"],
     );
@@ -20,6 +24,8 @@ class AppUser {
       "uid": uid,
       "userName": userName,
       "Email": email,
+      "role": role,
+      "ceiling": 0,
     };
   }
 }

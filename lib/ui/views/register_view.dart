@@ -110,11 +110,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                             if (value) {
                                               setState(() {
                                                 loading = false;
-                                                Get.toNamed("/home");
+                                                Get.toNamed("/user");
                                               });
                                             } else {
                                               Fluttertoast.showToast(
-                                                  msg: "Invalid cridentials",
+                                                  msg: "L'email deja existe",
                                                   toastLength: Toast.LENGTH_SHORT,
                                                   gravity: ToastGravity.BOTTOM,
                                                   timeInSecForIosWeb: 1,

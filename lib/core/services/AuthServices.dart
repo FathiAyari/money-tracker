@@ -5,7 +5,7 @@ import 'package:moneymanager/core/models/user.dart';
 
 class AuthServices {
   var userCollection = FirebaseFirestore.instance.collection('users');
-
+  var savedUser = GetStorage().read('user');
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<bool> signIn(String emailController, String passwordController) async {
@@ -23,7 +23,7 @@ class AuthServices {
     try {
       await auth.createUserWithEmailAndPassword(email: emailController, password: passwordController);
 
-      await saveUser(AppUser(uid: user!.uid, userName: name, email: emailController));
+      await saveUser(AppUser(uid: user!.uid, userName: name, email: emailController, role: 'user', ceiling: 0));
       await saveUserInLocalStorage();
       return true;
     } on FirebaseException catch (e) {
@@ -64,6 +64,8 @@ class AuthServices {
       "uid": appUser.uid,
       "userName": appUser.userName,
       "Email": appUser.email,
+      "role": appUser.role,
+      "ceiling": appUser.ceiling,
     });
 
     storage.write("auth", 1);

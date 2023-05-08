@@ -13,6 +13,7 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  var user = GetStorage().read("user");
   bool en = GetStorage().read("locale") == "en" ? true : false;
   Widget Positive() {
     return Container(
@@ -56,17 +57,19 @@ class _AppDrawerState extends State<AppDrawer> {
               color: backgroundColor,
             ),
           ),
-          ListTile(
-            title: Text('statistics'.tr),
-            leading: Icon(Icons.pie_chart),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).pushNamed("/chart");
-            },
-          ),
-          Divider(
-            thickness: 1,
-          ),
+          if (user["role"] == "user") ...[
+            ListTile(
+              title: Text('statistics'.tr),
+              leading: Icon(Icons.pie_chart),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed("/chart");
+              },
+            ),
+            Divider(
+              thickness: 1,
+            ),
+          ],
           ListTile(
             title: Text("logout".tr),
             leading: Icon(Icons.logout),

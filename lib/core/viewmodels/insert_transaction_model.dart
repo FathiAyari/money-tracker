@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/services/transaction_sercvices.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
 class InsertTransactionModel extends BaseModel {
-  TextEditingController memoController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   var user = GetStorage().read("user");
   bool loading = false;
@@ -53,8 +54,7 @@ class InsertTransactionModel extends BaseModel {
     }
   }
 
-  addTransaction(context) async {
-    String memo = memoController.text;
+  addTransaction(context, TextEditingController memoController) async {
     String amount = amountController.text;
 
     TransactionProcess newTransaction = TransactionProcess(
@@ -72,6 +72,35 @@ class InsertTransactionModel extends BaseModel {
       amountController.clear();
       notifyListeners();
     });
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user['uid'])
+        .collection("transactions")
+        .where("month", isEqualTo: DateFormat("MMMM").format(DateTime.now()))
+        .get();
+    List<TransactionProcess> res = snapshot.docs.map((doc) => TransactionProcess.fromJson(doc.data())).toList();
+    dynamic income = 0;
+    dynamic expenses = 0;
+    for (var value in res) {
+      if (value.type == "expense") {
+        expenses = expenses + value.amount;
+      } else {
+        income = income + value.amount;
+      }
+    }
+    if (income - expenses < user["ceiling"] && type == "expense") {
+      final snackBar = SnackBar(
+        content: Text("Vous avez depassé votre plafond de ${user['ceiling']} dt "),
+        backgroundColor: (Colors.red),
+        action: SnackBarAction(
+          label: 'fermer',
+          textColor: Colors.white,
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 }

@@ -1,26 +1,64 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:moneymanager/core/models/category.dart';
+import 'package:moneymanager/core/models/transaction.dart';
 import 'package:moneymanager/core/viewmodels/insert_transaction_model.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
 import 'package:moneymanager/ui/widgets/inputs/transactions_field.dart';
 
-class InsertTranscationView extends StatelessWidget {
+class InsertTranscationView extends StatefulWidget {
   final Category category;
   final int selectedCategory;
   InsertTranscationView({required this.category, required this.selectedCategory});
+
+  @override
+  State<InsertTranscationView> createState() => _InsertTranscationViewState();
+}
+
+class _InsertTranscationViewState extends State<InsertTranscationView> {
   final _formkey = GlobalKey<FormState>();
+  TextEditingController memoController = TextEditingController();
+  List<TransactionProcess> result = [];
+
+  var user = GetStorage().read("user");
+
+  searchResult() async {
+    List<TransactionProcess> showResultList = [];
+    var data = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(user['uid'])
+        .collection("transactions")
+        .where("type", isEqualTo: "expense")
+        .where("categoryindex", isEqualTo: widget.category.index)
+        .get();
+    print(data.docs.toList().first.get("memo"));
+    if (memoController.text != "") {
+      for (var value in data.docs.toList()) {
+        var res = TransactionProcess.fromJson(value.data() as Map<String, dynamic>);
+        if (res.memo!.contains(memoController.text.toLowerCase())) {
+          showResultList.add(res);
+        }
+      }
+    } else {
+      showResultList = [];
+    }
+    setState(() {
+      result = showResultList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return BaseView<InsertTransactionModel>(
       model: InsertTransactionModel(),
-      onModelReady: (model) => model.init(selectedCategory, category.index),
+      onModelReady: (model) => model.init(widget.selectedCategory, widget.category.index),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: selectedCategory == 1 ? Text('income'.tr) : Text('expense'.tr),
+          title: widget.selectedCategory == 1 ? Text('income'.tr) : Text('expense'.tr),
         ),
         body: SafeArea(
           child: Padding(
@@ -30,20 +68,47 @@ class InsertTranscationView extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   ListTile(
-                    title: Text(category.name),
+                    title: Text(widget.category.name),
                     leading: CircleAvatar(
                         child: Icon(
-                      category.icon,
+                      widget.category.icon,
                       size: 20,
                     )),
                   ),
                   UIHelper.verticalSpaceMedium(),
                   TransactionField(
-                      controller: model.memoController,
+                      test: (value) {
+                        searchResult();
+                      },
+                      controller: memoController,
                       text: 'label'.tr + ' : ',
                       helperText: "enter_label".tr,
                       icon: Icons.edit,
                       isNumeric: false),
+                  Padding(
+                    padding: EdgeInsets.only(left: 40.0),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: result.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child: Container(
+                                color: Colors.indigo.withOpacity(0.5),
+                                child: ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        memoController.text = result[index].memo;
+                                        memoController.selection =
+                                            TextSelection.fromPosition(TextPosition(offset: memoController.text.length));
+
+                                        result.clear();
+                                      });
+                                    },
+                                    title: Text(result[index].memo))),
+                          );
+                        }),
+                  ),
                   UIHelper.verticalSpaceMedium(),
                   TransactionField(
                       controller: model.amountController,
@@ -85,7 +150,7 @@ class InsertTranscationView extends StatelessWidget {
                             ),
                             onPressed: () {
                               if (_formkey.currentState!.validate()) {
-                                model.addTransaction(context);
+                                model.addTransaction(context, memoController);
                               }
                             },
                           ),

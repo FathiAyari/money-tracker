@@ -7,10 +7,12 @@ class TransactionField extends StatelessWidget {
   String helperText;
   IconData icon;
   bool isNumeric;
+  ValueChanged<String>? test;
 
   TransactionField(
       {Key? key,
       required this.text,
+      this.test,
       required this.controller,
       required this.icon,
       required this.helperText,
@@ -32,6 +34,7 @@ class TransactionField extends StatelessWidget {
         }
       },
       cursorColor: Colors.black,
+      onChanged: (value) => test != null ? test!(value) : null,
       maxLength: isNumeric ? 10 : 40,
       keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
       controller: controller,

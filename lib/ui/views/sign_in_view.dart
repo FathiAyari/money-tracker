@@ -127,7 +127,7 @@ class _LoginScreenState extends State<SignInScreen> {
                     ),
                   ),
                   InputField(
-                    label: "Password",
+                    label: "Mot de passe",
                     controller: passwordController,
                     textInputType: TextInputType.visiblePassword,
                     prefixWidget: Icon(
@@ -180,7 +180,11 @@ class _LoginScreenState extends State<SignInScreen> {
                                               .signIn(emailController.text, passwordController.text)
                                               .then((value) async {
                                             if (value) {
-                                              Get.toNamed("/home");
+                                              if (AuthServices().savedUser['role'] == "user") {
+                                                Get.toNamed("/user");
+                                              } else {
+                                                Get.toNamed("/admin");
+                                              }
                                             } else {
                                               Fluttertoast.showToast(
                                                   msg: "Invalid cridentials",

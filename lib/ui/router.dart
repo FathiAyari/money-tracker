@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:moneymanager/ui/views/admin/admin_home.dart';
 import 'package:moneymanager/ui/views/details_view.dart';
 import 'package:moneymanager/ui/views/edit_view.dart';
 import 'package:moneymanager/ui/views/home_view.dart';
+import 'package:moneymanager/ui/views/messages/client_services.dart';
 import 'package:moneymanager/ui/views/sign_in_view.dart';
 import 'package:moneymanager/ui/views/spash_view.dart';
+import 'package:moneymanager/ui/views/user_home.dart';
 
 import '../core/models/transaction.dart';
 import 'views/insert_transaction_view.dart';
@@ -22,6 +25,12 @@ class Routes {
         return MaterialPageRoute(builder: (_) => HomeView());
       case '/login':
         return MaterialPageRoute(builder: (_) => SignInScreen());
+      case '/admin':
+        return MaterialPageRoute(builder: (_) => AdminHomeScreen());
+      case '/admins':
+        return MaterialPageRoute(builder: (_) => ClientServices());
+      case '/user':
+        return MaterialPageRoute(builder: (_) => UserHomeScreen());
       case '/register':
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case '/newtransaction':
